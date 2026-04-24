@@ -1,4 +1,4 @@
-# XAUUSD Signal Master
+# XAUUSD Signal Master https://linktr.ee/DevFlow_Claude
 
 Signal provider system for XAU/USD (Gold) based on the **Sunrise Ogle** strategy.
 
