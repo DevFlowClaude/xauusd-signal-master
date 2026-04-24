@@ -1,0 +1,92 @@
+# XAUUSD Signal Master - Configuration
+# Edit this file for your environment. Do not commit secrets - use env vars.
+
+master:
+  version: "1.0.0"
+  name: "XAUUSD Signal Master"
+  
+strategy:
+  name: "sunrise_ogle"
+  symbol: "XAUUSD"
+  timeframe: "M5"
+  # Risk per trade as % of account (used for signal sizing)
+  # User selected 1.5% per our discussion
+  default_risk_percent: 1.5
+  # Direction control (from original strategy: only LONG trades enabled)
+  enable_long: true
+  enable_short: false
+
+mt5:
+  # FxPro demo account credentials go in .env file, not here
+  # Symbol override: some brokers use different symbol names for gold
+  # FxPro: typically "XAUUSD" or "GOLD"
+  # FundingPips: "XAUUSD"
+  # Broker aliases handled in mt5_feed.py similar to NAS100 broker aliases
+  symbol_candidates:
+    - "XAUUSD"
+    - "XAUUSD.r"
+    - "XAUUSDm"
+    - "GOLD"
+    - "GOLDm"
+  # History bars to preload for indicators (EMA200, ATR, etc.)
+  history_preload_bars: 500
+  # How often to poll/update bar data (seconds)
+  poll_interval_seconds: 10
+
+broadcaster:
+  # WebSocket server settings
+  websocket_host: "0.0.0.0"
+  websocket_port: 8765
+  # JSON file backup
+  json_output_path: "data/signals_live.json"
+  # How long signals remain valid (seconds)
+  signal_validity_seconds: 300
+
+fundingpips_guards:
+  enabled: true
+  # FundingPips 2-Step rules
+  max_daily_loss_percent: 4.5    # Actual limit 5%, we stop at 4.5 for safety
+  max_overall_loss_percent: 9.0  # Actual limit 10%, we stop at 9.0
+  # Consistency rule: single trade should not be more than X% of total profits
+  consistency_max_single_trade_pct: 30
+  # Minimum trading days requirement
+  minimum_trading_days: 4
+  # News filter
+  news_filter_enabled: true
+  news_pause_minutes_before: 10
+  news_pause_minutes_after: 5
+  # FundingPips specific: profits from trades within 5 hours of news excluded
+  five_hour_news_rule_enabled: true
+
+news_filter:
+  # Currencies to filter on (USD impacts XAUUSD heavily)
+  currencies: ["USD"]
+  impact_levels: ["High"]
+  # Source: ForexFactory (already in hirek.py)
+  source: "forexfactory"
+  cache_minutes: 60
+
+telegram:
+  # Bot token loaded from .env
+  enabled: true
+  # Send trade signals
+  notify_on_signal: true
+  # Send daily summary
+  daily_summary_hour_utc: 21  # NY close
+
+logging:
+  level: "INFO"
+  log_dir: "logs"
+  audit_log_path: "logs/audit.log"
+
+session:
+  # XAUUSD is most liquid in London + NY sessions
+  # Times in UTC
+  london_start: "07:00"
+  london_end: "11:00"
+  ny_start: "12:30"
+  ny_end: "17:00"
+  # Don't open new trades Friday after this time (weekend gap risk)
+  friday_close_utc: "16:00"
+  # Skip trading during these UTC hours (Asian session is often choppy for gold)
+  skip_hours_utc: []  # Empty = trade all UTC hours that pass other filters

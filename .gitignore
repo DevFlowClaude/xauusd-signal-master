@@ -1,0 +1,46 @@
+# Environment / secrets
+.env
+*.env
+config/auth.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# Runtime data
+logs/*.log
+logs/*.log.*
+data/*.json
+data/news_cache.json
+data/signals_live.json
+data/guards_state.json
+
+# MT5 compiled files
+clients/mt5_ea/*.ex5
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Streamlit cache
+.streamlit/secrets.toml
+
+# Sunrise Ogle repo (cloned separately)
+sunrise_ogle/

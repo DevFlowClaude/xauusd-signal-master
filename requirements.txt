@@ -1,0 +1,26 @@
+# XAUUSD Signal Master - Python Dependencies
+# Python 3.10+ recommended
+
+# Strategy framework (same version as Sunrise Ogle repo)
+backtrader==1.9.76.123
+numpy==1.26.4
+pandas>=2.0.0
+matplotlib==3.8.4
+
+# MT5 integration (Windows only; skip on Linux dev environments)
+MetaTrader5>=5.0.45
+
+# HTTP server + WebSocket
+fastapi>=0.110.0
+uvicorn[standard]>=0.27.0
+websockets>=11.0.0
+
+# Config
+pyyaml>=6.0
+
+# Dashboard
+streamlit>=1.30.0
+
+# Utilities
+python-dotenv>=1.0.0
+requests>=2.31.0
