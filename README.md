@@ -1,4 +1,4 @@
-# XAUUSD Signal Master https://linktr.ee/DevFlow_Claude
+# XAUUSD Signal Master [(https://algo-market.info/)](https://algo-market.info/)
 
 Signal provider system for XAU/USD (Gold) based on the **Sunrise Ogle** strategy.
 
